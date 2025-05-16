@@ -1,48 +1,61 @@
 import React from "react";
 import {
   AppBar,
+  Toolbar,
   Typography,
-  Menu,
+  Box,
+  Select,
   MenuItem,
   TextField,
-  Box,
-  Toolbar,
-  Select,
 } from "@mui/material";
 
-function NavBar() {
-  const [mode, setMode] = React.useState("solo");
-  const [name, setName] = React.useState("");
+interface NavBarProps {
+  gameMode: string;
+  setGameMode: (mode: string) => void;
+  username: string;
+  setUsername: (name: string) => void;
+}
 
+const NavBar: React.FC<NavBarProps> = ({
+  gameMode,
+  setGameMode,
+  username,
+  setUsername,
+}) => {
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
+    <AppBar position="static" color="default" elevation={1}>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ fontWeight: "bold", color: "text.primary" }}
+        >
           Blackjack
         </Typography>
-        <Box sx={{ display: "flex", gap: 2 }}>
+
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Select
-            value={mode}
-            onChange={(e) => setMode(e.target.value)}
+            value={gameMode}
+            onChange={(e) => setGameMode(e.target.value)}
             size="small"
-            variant="outlined"
-            sx={{ backgroundColor: "white" }}
+            sx={{ bgcolor: "background.paper", borderRadius: 1, minWidth: 120 }}
           >
-            <MenuItem value="Solo">Solo</MenuItem>
-            <MenuItem value="local">Multiplayer</MenuItem>
+            <MenuItem value="solo">Solo</MenuItem>
+            <MenuItem value="local">Local Multiplayer</MenuItem>
           </Select>
+
           <TextField
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             size="small"
-            variant="outlined"
             placeholder="Username"
-            sx={{ backgroundColor: "white" }}
+            sx={{ bgcolor: "background.paper", borderRadius: 1, width: 150 }}
+            inputProps={{ style: { color: "text.primary" } }}
           />
         </Box>
       </Toolbar>
     </AppBar>
   );
-}
+};
 
 export default NavBar;
