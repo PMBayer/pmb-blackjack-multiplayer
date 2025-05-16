@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
 
 export default function NavBar() {
   const [mode, setMode] = useState("solo");
