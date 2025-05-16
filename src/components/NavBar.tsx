@@ -1,46 +1,85 @@
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import {
+  AppBar,
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  Tab,
+  Tabs,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import TextField from "@mui/material/TextField";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
-  const [mode, setMode] = useState("solo");
-  const [username, setUsername] = useState("");
+  const [tab, setTab] = useState(0);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
+  const tabs = ["SOLO", "LOCAL MULTIPLAYER"];
 
-  const handleModeChange = (event: React.SyntheticEvent, newValue: string) => {
-    setMode(newValue);
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
+    setTab(newValue);
+
+    const label = tabs[newValue];
+    if (label === "SOLO") {
+      navigate("/solo");
+    } else if (label === "LOCAL MULTIPLAYER") {
+      navigate("/local");
+    }
+    // Optional: Trigger game mode change logic here
+  };
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleNavigateToInfo = () => {
+    handleMenuClose();
+    navigate("/info");
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#1976d2" }}>
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Typography variant="h6" sx={{ color: "white", mr: 2 }}>
-          Blackjack
-        </Typography>
-        <Tabs
-          value={mode}
-          onChange={handleModeChange}
-          textColor="inherit"
-          indicatorColor="secondary"
-        >
-          <Tab label="Solo" value="solo" sx={{ color: "white" }} />
-          <Tab
-            label="Local Multiplayer"
-            value="local"
-            sx={{ color: "white" }}
-          />
-        </Tabs>
-        <TextField
-          label="Username"
-          variant="outlined"
-          size="small"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          sx={{ ml: 3, backgroundColor: "white", borderRadius: 1 }}
-        />
+    <AppBar position="static" color="primary" enableColorOnDark>
+      <Toolbar sx={{ justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
+          <Typography variant="h6" noWrap>
+            Blackjack
+          </Typography>
+
+          <Tabs
+            value={tab}
+            onChange={handleTabChange}
+            textColor="inherit"
+            indicatorColor="secondary"
+          >
+            {tabs.map((label) => (
+              <Tab key={label} label={label} />
+            ))}
+          </Tabs>
+        </Box>
+
+        <Box>
+          <IconButton color="inherit" onClick={handleMenuOpen}>
+            <AccountCircleIcon />
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
+          >
+            <MenuItem onClick={handleMenuClose}>User Settings</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Statistics</MenuItem>
+            <MenuItem onClick={handleNavigateToInfo}>Info</MenuItem>
+          </Menu>
+        </Box>
       </Toolbar>
     </AppBar>
   );
