@@ -1,19 +1,34 @@
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Box, IconButton, Menu, MenuItem } from "@mui/material";
-import AppBar from "@mui/material/AppBar";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
+import {
+  AppBar,
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  Tab,
+  Tabs,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
   const [tab, setTab] = useState(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
+  const tabs = ["SOLO", "LOCAL MULTIPLAYER"];
 
   const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
-    // Here you could trigger game mode change logic
+
+    const label = tabs[newValue];
+    if (label === "SOLO") {
+      navigate("/solo");
+    } else if (label === "LOCAL MULTIPLAYER") {
+      navigate("/local");
+    }
+    // Optional: Trigger game mode change logic here
   };
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -24,22 +39,30 @@ export default function NavBar() {
     setAnchorEl(null);
   };
 
+  const handleNavigateToInfo = () => {
+    handleMenuClose();
+    navigate("/info");
+  };
+
   return (
     <AppBar position="static" color="primary" enableColorOnDark>
       <Toolbar sx={{ justifyContent: "space-between" }}>
-        <Typography variant="h6" noWrap>
-          Blackjack
-        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
+          <Typography variant="h6" noWrap>
+            Blackjack
+          </Typography>
 
-        <Tabs
-          value={tab}
-          onChange={handleTabChange}
-          textColor="inherit"
-          indicatorColor="secondary"
-        >
-          <Tab label="SOLO" />
-          <Tab label="LOCAL MULTIPLAYER" />
-        </Tabs>
+          <Tabs
+            value={tab}
+            onChange={handleTabChange}
+            textColor="inherit"
+            indicatorColor="secondary"
+          >
+            {tabs.map((label) => (
+              <Tab key={label} label={label} />
+            ))}
+          </Tabs>
+        </Box>
 
         <Box>
           <IconButton color="inherit" onClick={handleMenuOpen}>
@@ -54,7 +77,7 @@ export default function NavBar() {
           >
             <MenuItem onClick={handleMenuClose}>User Settings</MenuItem>
             <MenuItem onClick={handleMenuClose}>Statistics</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Info</MenuItem>
+            <MenuItem onClick={handleNavigateToInfo}>Info</MenuItem>
           </Menu>
         </Box>
       </Toolbar>
