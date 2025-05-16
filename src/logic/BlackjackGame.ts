@@ -1,6 +1,6 @@
 // src/game/BlackjackGame.ts
 
-type Card = {
+export type Card = {
     suit: 'spades' | 'hearts' | 'diamonds' | 'clubs';
     value: string; // '2' bis '10', 'J', 'Q', 'K', 'A'
   };

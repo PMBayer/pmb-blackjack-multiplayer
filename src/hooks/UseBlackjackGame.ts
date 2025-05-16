@@ -1,12 +1,13 @@
-// src/hooks/useBlackjackGame.ts
 import { useState } from 'react';
-import { BlackjackGame } from '../game/BlackjackGame';
+import { BlackjackGame } from '../logic/BlackjackGame';
+
+type Winner = 'player' | 'dealer' | 'draw' | null;
 
 const useBlackjackGame = () => {
-  const [game] = useState(new BlackjackGame());
+  const [game] = useState(() => new BlackjackGame());
   const [playerHand, setPlayerHand] = useState(game.playerHand);
   const [dealerHand, setDealerHand] = useState(game.dealerHand);
-  const [winner, setWinner] = useState<string | null>(null);
+  const [winner, setWinner] = useState<Winner>(null);
 
   const hit = () => {
     game.hit();
@@ -14,6 +15,8 @@ const useBlackjackGame = () => {
 
     if (game.isPlayerBusted()) {
       setWinner('dealer');
+    } else {
+      setWinner(null);
     }
   };
 
