@@ -1,5 +1,3 @@
-// src/game/BlackjackGame.ts
-
 export type Card = {
     suit: 'spades' | 'hearts' | 'diamonds' | 'clubs';
     value: string; // '2' bis '10', 'J', 'Q', 'K', 'A'
@@ -13,12 +11,12 @@ export type Card = {
     public dealerHand: Hand = [];
   
     constructor() {
-      this.resetGame();
+      this.initGame();
     }
   
     private createDeck(): Card[] {
       const suits = ['spades', 'hearts', 'diamonds', 'clubs'] as const;
-      const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+      const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'ace'];
       return suits.flatMap(suit =>
         values.map(value => ({ suit, value }))
       );
@@ -32,11 +30,26 @@ export type Card = {
       if (this.deck.length === 0) throw new Error("Deck ist leer");
       return this.deck.pop()!;
     }
-  
-    public resetGame(): void {
+
+    public initGame(): void {
       this.deck = this.shuffleDeck(this.createDeck());
+    }
+
+    public clearCards(): void {
+      this.deck = [];
+      this.playerHand = [];
+      this.dealerHand = [];
+    }
+    
+    public startGame() {
       this.playerHand = [this.drawCard(), this.drawCard()];
       this.dealerHand = [this.drawCard(), this.drawCard()];
+    }
+
+    public resetGame(): void {
+      this.clearCards();
+      this.initGame();
+      this.startGame();
     }
   
     public hit(): void {

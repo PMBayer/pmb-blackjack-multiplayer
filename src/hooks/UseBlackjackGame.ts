@@ -1,9 +1,12 @@
 // src/hooks/useBlackjackGame.ts
 import { useCallback, useState } from "react";
-import { BlackjackGame, Card } from "../logic/BlackjackGame";
+import type { Card } from '../logic/BlackjackGame.ts';
+import { BlackjackGame } from "../logic/BlackjackGame.ts";
 
 export function useBlackjackGame() {
+  console.log('Instanziere BlackjackGame');
   const [game] = useState(() => new BlackjackGame());
+  console.log('Game:', game);
   const [playerHand, setPlayerHand] = useState<Card[]>(game.playerHand);
   const [dealerHand, setDealerHand] = useState<Card[]>(game.dealerHand);
   const [isRunning, setIsRunning] = useState(false);
@@ -33,8 +36,11 @@ export function useBlackjackGame() {
     setIsRunning(false);
   }, [game]);
 
+  const playerHandValue = game.getHandValue(playerHand);
+
   return {
     playerHand,
+    playerHandValue,
     dealerHand,
     isRunning,
     startGame,

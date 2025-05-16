@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useBlackjackGame } from "../hooks/useBlackjackGame";
+import { useBlackjackGame } from "../hooks/UseBlackjackGame";
 import ControlBar from "./ControlBar";
 import DealerTable from "./DealerTable";
 import PlayerArea from "./PlayerArea";

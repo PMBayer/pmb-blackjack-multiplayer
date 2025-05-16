@@ -1,5 +1,6 @@
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import { Box, Typography } from "@mui/material";
-import { Card } from "../game/BlackjackGame";
+import type { Card } from "../logic/BlackjackGame.ts";
 import CardImage from "./CardImage";
 
 interface DealerTableProps {
@@ -18,6 +19,7 @@ function DealerTable({ gameStarted, cards }: DealerTableProps) {
         textAlign: "center",
       }}
     >
+      <SupportAgentIcon fontSize="medium" />
       <Typography variant="h6" gutterBottom color="text.primary">
         Dealer
       </Typography>
