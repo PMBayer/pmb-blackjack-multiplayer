@@ -1,10 +1,9 @@
 name: CodeQL Analysis
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  schedule:
+    - cron: "0 3 * * *" # Runs daily at 03:00 UTC
+  workflow_dispatch: # Manual trigger from GitHub UI
 
 jobs:
   analyze:
@@ -13,11 +12,17 @@ jobs:
     permissions:
       security-events: write
 
-    steps:
-      - uses: actions/checkout@v4
+    strategy:
+      fail-fast: false
 
-      - uses: github/codeql-action/init@v3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
         with:
           languages: javascript
 
-      - uses: github/codeql-action/analyze@v3
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
