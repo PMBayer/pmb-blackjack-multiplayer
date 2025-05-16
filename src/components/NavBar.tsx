@@ -1,61 +1,48 @@
-import React from "react";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Box,
-  Select,
-  MenuItem,
-  TextField,
-} from "@mui/material";
+import React, { useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
 
-interface NavBarProps {
-  gameMode: string;
-  setGameMode: (mode: string) => void;
-  username: string;
-  setUsername: (name: string) => void;
-}
+export default function NavBar() {
+  const [mode, setMode] = useState("solo");
+  const [username, setUsername] = useState("");
 
-const NavBar: React.FC<NavBarProps> = ({
-  gameMode,
-  setGameMode,
-  username,
-  setUsername,
-}) => {
+  const handleModeChange = (event: React.SyntheticEvent, newValue: string) => {
+    setMode(newValue);
+  };
+
   return (
-    <AppBar position="static" color="default" elevation={1}>
+    <AppBar position="static" sx={{ backgroundColor: "#1976d2" }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Typography
-          variant="h6"
-          component="div"
-          sx={{ fontWeight: "bold", color: "text.primary" }}
-        >
+        <Typography variant="h6" sx={{ color: "white", mr: 2 }}>
           Blackjack
         </Typography>
-
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <Select
-            value={gameMode}
-            onChange={(e) => setGameMode(e.target.value)}
-            size="small"
-            sx={{ bgcolor: "background.paper", borderRadius: 1, minWidth: 120 }}
-          >
-            <MenuItem value="solo">Solo</MenuItem>
-            <MenuItem value="local">Local Multiplayer</MenuItem>
-          </Select>
-
-          <TextField
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            size="small"
-            placeholder="Username"
-            sx={{ bgcolor: "background.paper", borderRadius: 1, width: 150 }}
-            inputProps={{ style: { color: "text.primary" } }}
+        <Tabs
+          value={mode}
+          onChange={handleModeChange}
+          textColor="inherit"
+          indicatorColor="secondary"
+        >
+          <Tab label="Solo" value="solo" sx={{ color: "white" }} />
+          <Tab
+            label="Local Multiplayer"
+            value="local"
+            sx={{ color: "white" }}
           />
-        </Box>
+        </Tabs>
+        <TextField
+          label="Username"
+          variant="outlined"
+          size="small"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          sx={{ ml: 3, backgroundColor: "white", borderRadius: 1 }}
+        />
       </Toolbar>
     </AppBar>
   );
-};
-
-export default NavBar;
+}
