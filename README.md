@@ -2,7 +2,7 @@
 
 # 🃏 MPBlackjack (React Rework)
 
-This is a modern reimplementation of a classic Blackjack game originally built with JavaFX. Now rebuilt as a React client with TypeScript, focusing on modularity, clear code, and a web-friendly approach.
+This is a modern reimplementation of a classic Blackjack game originally built with basic JavaScript. Now rebuilt as a React client with TypeScript, focusing on modularity, clear code, and a web-friendly approach.
 
 ---
 
