@@ -1,18 +1,12 @@
 import { Box } from "@mui/material";
-import { useState } from "react";
+import { useBlackjackGame } from "../hooks/useBlackjackGame";
 import ControlBar from "./ControlBar";
 import DealerTable from "./DealerTable";
 import PlayerArea from "./PlayerArea";
 
 export default function GameBoard() {
-  const [isRunning, setIsRunning] = useState(false);
-
-  const handleStart = () => setIsRunning(true);
-  const handleStop = () => setIsRunning(false);
-  const handleReset = () => {
-    setIsRunning(false);
-    // Hier ggf. Spiel-Reset-Logik ergänzen
-  };
+  const { isRunning, startGame, reset, hit, stand, playerHand, dealerHand } =
+    useBlackjackGame();
 
   return (
     <>
@@ -21,21 +15,23 @@ export default function GameBoard() {
           backgroundColor: "#f5f5f5",
           minHeight: "100vh",
           padding: 2,
-          pb: 8 /* Platz für ControlBar */,
+          pb: 8,
         }}
       >
         <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
-          <DealerTable />
+          <DealerTable gameStarted={isRunning} cards={dealerHand} />
         </Box>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <PlayerArea />
+          <PlayerArea cards={playerHand} onHit={hit} onStand={stand} />
         </Box>
       </Box>
       <ControlBar
         isRunning={isRunning}
-        onStart={handleStart}
-        onStop={handleStop}
-        onReset={handleReset}
+        onStart={startGame}
+        onStop={stand}
+        onReset={reset}
+        onHint={() => alert("Noch kein Hint-Feature 😅")}
+        hintText="Zieh eine weitere Karte oder bleibe stehen"
       />
     </>
   );

@@ -1,46 +1,45 @@
-import { useState } from 'react';
-import { BlackjackGame } from '../logic/BlackjackGame';
+// src/hooks/useBlackjackGame.ts
+import { useCallback, useState } from "react";
+import { BlackjackGame, Card } from "../logic/BlackjackGame";
 
-type Winner = 'player' | 'dealer' | 'draw' | null;
-
-const useBlackjackGame = () => {
+export function useBlackjackGame() {
   const [game] = useState(() => new BlackjackGame());
-  const [playerHand, setPlayerHand] = useState(game.playerHand);
-  const [dealerHand, setDealerHand] = useState(game.dealerHand);
-  const [winner, setWinner] = useState<Winner>(null);
+  const [playerHand, setPlayerHand] = useState<Card[]>(game.playerHand);
+  const [dealerHand, setDealerHand] = useState<Card[]>(game.dealerHand);
+  const [isRunning, setIsRunning] = useState(false);
 
-  const hit = () => {
-    game.hit();
-    setPlayerHand([...game.playerHand]);
-
-    if (game.isPlayerBusted()) {
-      setWinner('dealer');
-    } else {
-      setWinner(null);
-    }
-  };
-
-  const stand = () => {
-    game.stand();
-    setDealerHand([...game.dealerHand]);
-    setWinner(game.getWinner());
-  };
-
-  const reset = () => {
+  const startGame = useCallback(() => {
     game.resetGame();
     setPlayerHand([...game.playerHand]);
     setDealerHand([...game.dealerHand]);
-    setWinner(null);
-  };
+    setIsRunning(true);
+  }, [game]);
+
+  const hit = useCallback(() => {
+    game.hit();
+    setPlayerHand([...game.playerHand]);
+  }, [game]);
+
+  const stand = useCallback(() => {
+    game.stand();
+    setDealerHand([...game.dealerHand]);
+    setIsRunning(false);
+  }, [game]);
+
+  const reset = useCallback(() => {
+    game.resetGame();
+    setPlayerHand([]);
+    setDealerHand([]);
+    setIsRunning(false);
+  }, [game]);
 
   return {
     playerHand,
     dealerHand,
-    winner,
+    isRunning,
+    startGame,
     hit,
     stand,
     reset,
   };
-};
-
-export default useBlackjackGame;
+}

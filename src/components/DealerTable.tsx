@@ -1,10 +1,13 @@
 import { Box, Typography } from "@mui/material";
+import { Card } from "../game/BlackjackGame";
+import CardImage from "./CardImage";
 
 interface DealerTableProps {
   gameStarted: boolean;
+  cards: Card[];
 }
 
-function DealerTable({ gameStarted }: DealerTableProps) {
+function DealerTable({ gameStarted, cards }: DealerTableProps) {
   return (
     <Box
       sx={{
@@ -21,24 +24,9 @@ function DealerTable({ gameStarted }: DealerTableProps) {
 
       {gameStarted && (
         <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
-          <Box
-            sx={{
-              width: { xs: 60, sm: 80, md: 100 },
-              height: 140,
-              bgcolor: "grey.100",
-              borderRadius: 1,
-              boxShadow: 1,
-            }}
-          />
-          <Box
-            sx={{
-              width: { xs: 60, sm: 80, md: 100 },
-              height: 140,
-              bgcolor: "grey.100",
-              borderRadius: 1,
-              boxShadow: 1,
-            }}
-          />
+          {cards.map((card, idx) => (
+            <CardImage key={idx} suit={card.suit} value={card.value} />
+          ))}
         </Box>
       )}
     </Box>
