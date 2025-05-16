@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { useState } from "react";
-import ControlBar from "./ControlBar"; // Pfad anpassen
+import ControlBar from "./ControlBar";
 import DealerTable from "./DealerTable";
 import PlayerArea from "./PlayerArea";
 

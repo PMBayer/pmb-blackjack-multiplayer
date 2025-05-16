@@ -8,10 +8,10 @@ import {
   Tab,
   Tabs,
   Toolbar,
-  Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import blackjackIcon from "../assets/icon.png";
 
 export default function NavBar() {
   const [tab, setTab] = useState(0);
@@ -48,9 +48,11 @@ export default function NavBar() {
     <AppBar position="static" color="primary" enableColorOnDark>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
-          <Typography variant="h6" noWrap>
-            Blackjack
-          </Typography>
+          <img
+            src={blackjackIcon}
+            alt="Cards Icon"
+            style={{ width: 28, height: 28, opacity: 0.7 }}
+          />
 
           <Tabs
             value={tab}

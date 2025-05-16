@@ -5,8 +5,8 @@ import Navbar from "./components/NavBar";
 import InfoPage from "./pages/InfoPage";
 import LocalMultiplayerPage from "./pages/LocalMultiplayerPage";
 import SoloPage from "./pages/SoloPage";
+import TestPreview from "./pages/TestPreview";
 import WelcomePage from "./pages/WelcomePage";
-
 function App() {
   return (
     <>
@@ -20,6 +20,7 @@ function App() {
           <Route path="/info" element={<InfoPage />} />
           /** DebugRoute */
           <Route path="/debug" element={<GameBoard />} />
+          <Route path="/test" element={<TestPreview />} />
         </Routes>
       </Container>
     </>
