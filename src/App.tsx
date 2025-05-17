@@ -12,7 +12,7 @@ function App() {
     <>
       <CssBaseline />
       <Navbar />
-      <Container maxWidth="lg" sx={{ mt: 4 }}>
+      <Container maxWidth="lg">
         <Routes>
           <Route path="/" element={<WelcomePage />} />
           <Route path="/solo" element={<SoloPage />} />
