@@ -1,10 +1,12 @@
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { useState } from "react";
 import ControlBar from "./ControlBar";
 import DealerTable from "./DealerTable";
 import PlayerArea from "./PlayerArea";
 
 export default function GameBoard() {
+  const theme = useTheme();
+
   const [isRunning, setIsRunning] = useState(false);
 
   const handleStart = () => setIsRunning(true);
@@ -18,10 +20,10 @@ export default function GameBoard() {
     <>
       <Box
         sx={{
-          backgroundColor: "#f5f5f5",
+          backgroundColor: theme.palette.background.default,
           minHeight: "100vh",
           padding: 2,
-          pb: 8 /* Platz für ControlBar */,
+          pb: 8,
         }}
       >
         <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
