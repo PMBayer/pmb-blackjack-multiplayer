@@ -1,7 +1,21 @@
+import { Box, Button, Typography } from "@mui/material";
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import type { Card } from "../logic/BlackjackGame";
+import CardImage from "./CardImage";
 
-const PlayerArea: React.FC = () => {
+interface PlayerAreaProps {
+  cards: Card[];
+  handValue: number; // Wert der Hand als Prop dazu
+  onHit: () => void;
+  onStand: () => void;
+}
+
+const PlayerArea: React.FC<PlayerAreaProps> = ({
+  cards,
+  handValue,
+  onHit,
+  onStand,
+}) => {
   return (
     <Box
       sx={{
@@ -15,31 +29,32 @@ const PlayerArea: React.FC = () => {
       <Typography variant="h6" gutterBottom color="text.primary">
         Spieler 1
       </Typography>
+
+      <Typography variant="subtitle1" color="text.secondary" mb={1}>
+        Wert: {handValue}
+      </Typography>
+
       <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mb: 2 }}>
-        <Box
-          sx={{
-            width: { xs: 60, sm: 80, md: 100 },
-            height: 140,
-            bgcolor: "grey.100",
-            borderRadius: 1,
-            boxShadow: 1,
-          }}
-        />
-        <Box
-          sx={{
-            width: { xs: 60, sm: 80, md: 100 },
-            height: 140,
-            bgcolor: "grey.100",
-            borderRadius: 1,
-            boxShadow: 1,
-          }}
-        />
+        {cards.map((card, idx) => (
+          <CardImage key={idx} suit={card.suit} value={card.value} />
+        ))}
       </Box>
+
       <Box sx={{ display: "flex", justifyContent: "center", gap: 1 }}>
-        <Button variant="contained" color="primary" size="small">
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          onClick={onHit}
+        >
           HIT
         </Button>
-        <Button variant="contained" color="primary" size="small">
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          onClick={onStand}
+        >
           STAND
         </Button>
       </Box>

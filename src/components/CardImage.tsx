@@ -1,12 +1,11 @@
-import React from "react";
-
 type CardProps = {
   value: string;
   suit: string;
 };
 
-const CardImage: React.FC<CardProps> = ({ value, suit }) => {
+function CardImage({ value, suit }: CardProps) {
   const fileName = `${value}_of_${suit}.png`;
+  console.log(fileName);
   const src = `/assets/cards/${fileName}`;
 
   return (
@@ -26,6 +25,6 @@ const CardImage: React.FC<CardProps> = ({ value, suit }) => {
       }}
     />
   );
-};
+}
 
 export default CardImage;

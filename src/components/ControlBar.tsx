@@ -1,7 +1,7 @@
 import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
+import PauseIcon from "@mui/icons-material/Pause";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import ReplayIcon from "@mui/icons-material/Replay";
-import StopIcon from "@mui/icons-material/Stop";
 import { Box, Divider, IconButton, Stack, Tooltip } from "@mui/material";
 
 interface ControlBarProps {
@@ -61,7 +61,6 @@ export default function ControlBar({
           </IconButton>
         ) : (
           <IconButton
-            onClick={onStop}
             sx={{
               color: iconColor,
               borderRadius: "50%",
@@ -70,7 +69,7 @@ export default function ControlBar({
             }}
             aria-label="Stop"
           >
-            <StopIcon fontSize="large" />
+            <PauseIcon fontSize="large" />
           </IconButton>
         )}
         <IconButton
