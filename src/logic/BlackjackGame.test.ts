@@ -11,7 +11,7 @@ describe('BlackjackGame', () => {
     game.resetGame();
     expect(game.playerHand.length).toBe(2);
     expect(game.dealerHand.length).toBe(2);
-    expect(game['deck'].length).toBe(52 - 4);
+    expect(game['deck'].length).toBe(game['numDecks'] * 52 - 4);
   });
 
   test('hit adds one card to the player hand', () => {
@@ -143,6 +143,6 @@ describe('BlackjackGame', () => {
 
   test('drawCard throws error if deck is empty', () => {
     game['deck'] = [];
-    expect(() => game['drawCard']()).toThrow('Deck ist leer');
+    expect(() => game['drawCard']()).toThrow('Deck is empty');
   });
 });

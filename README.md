@@ -2,29 +2,60 @@
 
 # 🃏 MPBlackjack (React Rework)
 
-This is a modern reimplementation of a classic Blackjack game originally built with basic JavaScript. Now rebuilt as a React client with TypeScript, focusing on modularity, clear code, and a web-friendly approach.
+A modern, modular, and web-friendly Blackjack game built with React, TypeScript, and Vite. This project reimagines the classic Blackjack experience with a clean UI, robust game logic, and a focus on maintainability.
 
 ---
 
 ## 📚 Background
 
-The original project was created as part of a university course ([old repo here](https://github.com/PMBayer/MPBlackJack)). This new version leverages React and TypeScript to provide a more maintainable and modern codebase with improved UI and architecture.
+Originally created for a university course ([old repo](https://github.com/PMBayer/MPBlackJack)), this version is a complete rewrite using React and TypeScript. The goal: a maintainable, testable, and visually appealing Blackjack game for the web.
 
 ---
 
 ## ⚙️ Tech Stack
 
-- [React](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Vite](https://vitejs.dev/) for fast dev server and builds
-- Plain CSS / CSS Modules (no CSS frameworks)
+- [React 18](https://reactjs.org/)
+- [TypeScript 5](https://www.typescriptlang.org/)
+- [Vite 4](https://vitejs.dev/) for lightning-fast dev/build
+- Plain CSS & CSS Modules (no frameworks)
+- [Jest](https://jestjs.io/) for unit testing
+
+---
+
+## 🏗️ Project Structure
+
+```
+mp-blackjack/
+├── public/                # Static assets (card images, icons)
+├── src/
+│   ├── assets/            # App icons
+│   ├── components/        # UI components (CardImage, GameBoard, etc.)
+│   ├── hooks/             # Custom React hooks (useBlackjackGame)
+│   ├── logic/             # Core game logic (BlackjackGame.ts)
+│   ├── pages/             # Route-based pages (Solo, Multiplayer, Info)
+│   ├── App.tsx            # Main app entry
+│   └── index.css          # Global styles
+├── package.json           # Project metadata & scripts
+├── vite.config.ts         # Vite configuration
+└── ...
+```
+
+---
+
+## 🎮 Features
+
+- **Classic Blackjack rules**: Hit, stand, bust, dealer logic, ace handling
+- **Single-player & Local Multiplayer**: Play solo or with a friend on the same device
+- **Modern UI**: Responsive, clean, and accessible
+- **Card graphics**: Realistic card images for an authentic feel
+- **Type-safe logic**: All core logic in TypeScript, with comprehensive unit tests
+- **Extensible**: Modular codebase for easy feature addition
 
 ---
 
 ## 🛠️ Getting Started
 
 ### Requirements
-
 - Node.js ≥ 18
 
 ### Setup
@@ -39,3 +70,36 @@ npm install
 
 # Start development server
 npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) to play.
+
+---
+
+## 🧪 Testing
+
+Unit tests cover all core game logic (see `src/logic/BlackjackGame.test.ts`).
+
+```bash
+npm test
+```
+
+---
+
+## 📁 Assets
+
+- All card images are in `public/assets/` and mapped to card values in the game logic.
+- App icons and SVGs in `src/assets/`.
+
+---
+
+## 📄 License
+
+MIT. See [LICENSE](LICENSE).
+
+---
+
+## 🙏 Credits
+
+- Card images: [Byron Knoll (CC0)](https://code.google.com/archive/p/vector-playing-cards/)
+- Original JS version: [PMBayer/MPBlackJack](https://github.com/PMBayer/MPBlackJack)
