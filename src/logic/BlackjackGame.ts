@@ -2,7 +2,7 @@
 
 export type Card = {
     suit: 'spades' | 'hearts' | 'diamonds' | 'clubs';
-    value: string; // '2' bis '10', 'J', 'Q', 'K', 'A'
+    value: string; // '2' to '10', 'J', 'Q', 'K', 'A'
   };
   
   type Hand = Card[];
@@ -37,7 +37,7 @@ export type Card = {
     }
   
     private drawCard(): Card {
-      if (this.deck.length === 0) throw new Error("Deck ist leer");
+      if (this.deck.length === 0) throw new Error("Deck is empty");
       return this.deck.pop()!;
     }
   
@@ -51,13 +51,20 @@ export type Card = {
       this.playerHand.push(this.drawCard());
     }
   
+    /**
+     * Dealer draws cards until the hand value is at least 17.
+     */
     public stand(): void {
-      // Dealer zieht Karten, bis er mindestens 17 hat
       while (this.getHandValue(this.dealerHand) < 17) {
         this.dealerHand.push(this.drawCard());
       }
     }
   
+    /**
+     * Calculates the total value of a hand, treating Aces as 11 or 1 as needed.
+     * @param hand The hand to evaluate
+     * @returns The total value of the hand
+     */
     public getHandValue(hand: Hand): number {
       let total = 0;
       let aces = 0;
@@ -73,7 +80,7 @@ export type Card = {
         }
       }
   
-      // Asse auf 1 setzen, wenn über 21
+      // Adjust Aces to 1 if total is over 21
       while (total > 21 && aces > 0) {
         total -= 10;
         aces -= 1;
