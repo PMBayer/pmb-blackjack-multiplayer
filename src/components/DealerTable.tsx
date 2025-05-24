@@ -12,7 +12,7 @@ interface DealerTableProps {
   hideHoleCard?: boolean;
 }
 
-function DealerTable({ hand, gameStarted, hideHoleCard }: DealerTableProps) {
+function DealerTable({ hand, gameStarted, hideHoleCard = false }: DealerTableProps) {
   return (
     <Box
       sx={{

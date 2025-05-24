@@ -1,5 +1,6 @@
-import { Alert, Snackbar } from "@mui/material";
 import { useEffect, useState } from "react";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
 import Confetti from "react-confetti";
 
 interface GameResultMessageProps {

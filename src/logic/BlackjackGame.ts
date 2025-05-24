@@ -21,23 +21,30 @@ export type Card = {
     private createDeck(): Card[] {
       const suits = ['spades', 'hearts', 'diamonds', 'clubs'] as const;
       const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-      let deck: Card[] = [];
+      const deck: Card[] = [];
       for (let d = 0; d < this.numDecks; d++) {
-        deck = deck.concat(
-          suits.flatMap(suit =>
-            values.map(value => ({ suit, value }))
-          )
-        );
+        for (const suit of suits) {
+          for (const value of values) {
+            deck.push({ suit, value });
+          }
+        }
       }
       return deck;
     }
   
     private shuffleDeck(deck: Card[]): Card[] {
-      return [...deck].sort(() => Math.random() - 0.5);
+      // Fisher-Yates shuffle
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+      }
+      return deck;
     }
   
     private drawCard(): Card {
-      if (this.deck.length === 0) throw new Error("Deck is empty");
+      if (this.deck.length === 0) {
+        throw new Error('Deck is empty');
+      }
       return this.deck.pop()!;
     }
   
@@ -68,24 +75,20 @@ export type Card = {
     public getHandValue(hand: Hand): number {
       let total = 0;
       let aces = 0;
-  
       for (const card of hand) {
-        if (['J', 'Q', 'K'].includes(card.value)) {
-          total += 10;
-        } else if (card.value === 'A') {
-          aces += 1;
+        if (card.value === 'A') {
           total += 11;
+          aces++;
+        } else if (['K', 'Q', 'J'].includes(card.value)) {
+          total += 10;
         } else {
           total += parseInt(card.value, 10);
         }
       }
-  
-      // Adjust Aces to 1 if total is over 21
       while (total > 21 && aces > 0) {
         total -= 10;
-        aces -= 1;
+        aces--;
       }
-  
       return total;
     }
   
@@ -98,14 +101,13 @@ export type Card = {
     }
   
     public getWinner(): 'player' | 'dealer' | 'draw' | null {
-      if (this.isPlayerBusted()) return 'dealer';
-      if (this.isDealerBusted()) return 'player';
-  
-      const playerTotal = this.getHandValue(this.playerHand);
-      const dealerTotal = this.getHandValue(this.dealerHand);
-  
-      if (playerTotal > dealerTotal) return 'player';
-      if (dealerTotal > playerTotal) return 'dealer';
-      return 'draw';
+      const playerValue = this.getHandValue(this.playerHand);
+      const dealerValue = this.getHandValue(this.dealerHand);
+      if (playerValue > 21) return 'dealer';
+      if (dealerValue > 21) return 'player';
+      if (playerValue > dealerValue) return 'player';
+      if (dealerValue > playerValue) return 'dealer';
+      if (playerValue === dealerValue) return 'draw';
+      return null;
     }
   }
