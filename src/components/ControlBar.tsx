@@ -1,7 +1,6 @@
-import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import ReplayIcon from "@mui/icons-material/Replay";
 import StopIcon from "@mui/icons-material/Stop";
+import ReplayIcon from "@mui/icons-material/Replay";
 import { Box, Divider, IconButton, Stack, Tooltip } from "@mui/material";
 
 interface ControlBarProps {
@@ -10,7 +9,7 @@ interface ControlBarProps {
   onReset: () => void;
   onHint: () => void;
   isRunning: boolean;
-  hintText: string; // Hier der Text, der beim Hover angezeigt wird
+  hintText: string;
 }
 
 export default function ControlBar({
@@ -47,31 +46,35 @@ export default function ControlBar({
         divider={<Divider orientation="vertical" flexItem />}
       >
         {!isRunning ? (
-          <IconButton
-            onClick={onStart}
-            sx={{
-              color: iconColor,
-              borderRadius: "50%",
-              width: 48,
-              height: 48,
-            }}
-            aria-label="Start"
-          >
-            <PlayArrowIcon fontSize="large" />
-          </IconButton>
+          <Tooltip title="Start Game" arrow>
+            <IconButton
+              onClick={onStart}
+              sx={{
+                color: iconColor,
+                borderRadius: "50%",
+                width: 48,
+                height: 48,
+              }}
+              aria-label="Start"
+            >
+              <PlayArrowIcon fontSize="large" />
+            </IconButton>
+          </Tooltip>
         ) : (
-          <IconButton
-            onClick={onStop}
-            sx={{
-              color: iconColor,
-              borderRadius: "50%",
-              width: 48,
-              height: 48,
-            }}
-            aria-label="Stop"
-          >
-            <StopIcon fontSize="large" />
-          </IconButton>
+          <Tooltip title="Stop Game" arrow>
+            <IconButton
+              onClick={onStop}
+              sx={{
+                color: iconColor,
+                borderRadius: "50%",
+                width: 48,
+                height: 48,
+              }}
+              aria-label="Stop"
+            >
+              <StopIcon fontSize="large" />
+            </IconButton>
+          </Tooltip>
         )}
         <IconButton
           onClick={onReset}
@@ -80,7 +83,6 @@ export default function ControlBar({
         >
           <ReplayIcon fontSize="large" />
         </IconButton>
-
         <Tooltip title={hintText} arrow>
           <IconButton
             onClick={onHint}
@@ -92,7 +94,7 @@ export default function ControlBar({
             }}
             aria-label="Hint"
           >
-            <LightbulbOutlinedIcon fontSize="large" />
+            ?
           </IconButton>
         </Tooltip>
       </Stack>

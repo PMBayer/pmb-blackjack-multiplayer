@@ -17,9 +17,6 @@ const CardImage: React.FC<CardProps> = ({ value, suit }) => {
   const fileName = `${fileValue.toLowerCase()}_of_${suit.toLowerCase()}.png`;
   const src = `/assets/${fileName}`;
 
-  // For debugging: log the src path
-  console.log('Card image src:', src);
-
   return (
     <img
       src={src}
@@ -33,7 +30,7 @@ const CardImage: React.FC<CardProps> = ({ value, suit }) => {
         backgroundColor: "#f0f0f0", // für transparente Karten
       }}
       onError={(e) => {
-        (e.currentTarget as HTMLImageElement).src = "/assets/back.png";
+        (e.currentTarget as HTMLImageElement).src = "/assets/cards/back.png";
         (e.currentTarget as HTMLImageElement).style.border = "2px solid red";
       }}
     />

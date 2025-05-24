@@ -1,4 +1,4 @@
-![React](https://img.shields.io/badge/react-18.2.0-blue?logo=react&logoColor=61DAFB) ![TypeScript](https://img.shields.io/badge/typescript-5.0-blue?logo=typescript&logoColor=3178C6) ![Vite](https://img.shields.io/badge/vite-4.4.9-brightgreen?logo=vite) ![License](https://img.shields.io/badge/license-MIT-green)
+![React](https://img.shields.io/badge/react-18.2.0-blue?logo=react&logoColor=61DAFB) ![TypeScript](https://img.shields.io/badge/typescript-5.0-blue?logo=typescript&logoColor=3178C6) ![Vite](https://img.shields.io/badge/vite-4.4.9-brightgreen?logo=vite) ![License](https://img.shields.io/badge/license-MIT-green) ![CI](https://github.com/PMBayer/pmb-blackjack-multiplayer/actions/workflows/pr-check.yaml/badge.svg)
 
 # 🃏 MPBlackjack (React Rework)
 
@@ -17,7 +17,7 @@ Originally created for a university course ([old repo](https://github.com/PMBaye
 - [React 18](https://reactjs.org/)
 - [TypeScript 5](https://www.typescriptlang.org/)
 - [Vite 4](https://vitejs.dev/) for lightning-fast dev/build
-- Plain CSS & CSS Modules (no frameworks)
+- [MUI](https://mui.com/) for UI components
 - [Jest](https://jestjs.io/) for unit testing
 
 ---
@@ -31,76 +31,74 @@ mp-blackjack/
 │   ├── assets/            # App icons
 │   ├── components/        # UI components (CardImage, GameBoard, etc.)
 │   ├── hooks/             # Custom React hooks (useBlackjackGame)
-│   ├── logic/             # Core game logic (BlackjackGame.ts)
-│   ├── pages/             # Route-based pages (Solo, Multiplayer, Info)
-│   ├── App.tsx            # Main app entry
-│   └── index.css          # Global styles
-├── package.json           # Project metadata & scripts
+│   ├── logic/             # Game logic (BlackjackGame)
+│   ├── pages/             # Page components (WelcomePage, InfoPage, etc.)
+│   ├── App.tsx            # Main app component
+│   └── main.tsx           # Entry point
+├── .github/               # GitHub workflows, dependabot, etc.
+├── package.json           # Project metadata and scripts
+├── tsconfig*.json         # TypeScript configuration
 ├── vite.config.ts         # Vite configuration
+├── README.md              # This file
 └── ...
 ```
 
 ---
 
-## 🎮 Features
+## 🚀 Usage
 
-- **Classic Blackjack rules**: Hit, stand, bust, dealer logic, ace handling
-- **Single-player & Local Multiplayer**: Play solo or with a friend on the same device
-- **Modern UI**: Responsive, clean, and accessible
-- **Card graphics**: Realistic card images for an authentic feel
-- **Type-safe logic**: All core logic in TypeScript, with comprehensive unit tests
-- **Extensible**: Modular codebase for easy feature addition
+### Development
 
----
-
-## 🛠️ Getting Started
-
-### Requirements
-
-- Node.js ≥ 18
-
-### Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/PMBayer/mp-blackjack.git
-cd mp-blackjack
-
-# Install dependencies
+```sh
 npm install
-
-# Start development server
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) to play.
+### Build
 
----
+```sh
+npm run build
+```
 
-## 🧪 Testing
+### Test
 
-Unit tests cover all core game logic (see `src/logic/BlackjackGame.test.ts`).
-
-```bash
+```sh
 npm test
+```
+
+### Lint
+
+```sh
+npm run lint
 ```
 
 ---
 
-## 📁 Assets
+## 🤝 Contributing
 
-- All card images are in `public/assets/` and mapped to card values in the game logic.
-- App icons and SVGs in `src/assets/`.
+1. Fork the repo and create your branch from `main`.
+2. Run tests and lint before pushing.
+3. Open a pull request and describe your changes.
 
 ---
 
 ## 📄 License
 
-MIT. See [LICENSE](LICENSE).
+MIT
 
 ---
 
-## 🙏 Credits
+## 🙋 FAQ
 
-- Card images: [Byron Knoll (CC0)](https://code.google.com/archive/p/vector-playing-cards/)
-- Original JS version: [PMBayer/MPBlackJack](https://github.com/PMBayer/MPBlackJack)
+- **How do I add a new game mode?**
+  - Add a new page in `src/pages/` and route in `App.tsx`.
+- **Where is the game logic?**
+  - See `src/logic/BlackjackGame.ts`.
+- **How do I run tests?**
+  - `npm test` (see above).
+
+---
+
+## 🛠️ Maintainers
+
+See [CODEOWNERS](.github/CODEOWNERS)
