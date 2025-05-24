@@ -110,7 +110,7 @@ export function NavBar() {
             aria-label="User account menu"
             aria-controls={anchorEl ? "account-menu" : undefined}
             aria-haspopup="true"
-            aria-expanded={Boolean(anchorEl) ? "true" : undefined}
+            aria-expanded={anchorEl ? "true" : undefined}
             color="primary"
           >
             <AccountCircleIcon fontSize="large" />
