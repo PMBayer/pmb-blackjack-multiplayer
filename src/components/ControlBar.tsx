@@ -1,7 +1,8 @@
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import StopIcon from "@mui/icons-material/Stop";
-import ReplayIcon from "@mui/icons-material/Replay";
-import { Box, Divider, IconButton, Stack, Tooltip } from "@mui/material";
+import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
+import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
+import ReplayRoundedIcon from "@mui/icons-material/ReplayRounded";
+import StopRoundedIcon from "@mui/icons-material/StopRounded";
+import { Box, Divider, Fade, IconButton, Stack, Tooltip } from "@mui/material";
 
 interface ControlBarProps {
   onStart: () => void;
@@ -20,84 +21,88 @@ export default function ControlBar({
   isRunning,
   hintText,
 }: ControlBarProps) {
-  const iconColor = "rgba(0, 0, 0, 0.54)";
-
   return (
-    <Box
-      sx={{
-        position: "fixed",
-        bottom: 24,
-        left: "50%",
-        transform: "translateX(-50%)",
-        bgcolor: "white",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.12)",
-        borderRadius: "24px",
-        px: 3,
-        py: 1,
-        zIndex: 1300,
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
-      <Stack
-        direction="row"
-        alignItems="center"
-        spacing={1}
-        divider={<Divider orientation="vertical" flexItem />}
+    <Fade in timeout={400}>
+      <Box
+        sx={{
+          position: "fixed",
+          bottom: 32,
+          left: "50%",
+          transform: "translateX(-50%)",
+          bgcolor: "background.paper",
+          borderRadius: 32,
+          px: 3,
+          py: 1.5,
+          boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+          zIndex: 1300,
+          display: "flex",
+          alignItems: "center",
+          gap: 2,
+        }}
       >
-        {!isRunning ? (
-          <Tooltip title="Start Game" arrow>
-            <IconButton
-              onClick={onStart}
-              sx={{
-                color: iconColor,
-                borderRadius: "50%",
-                width: 48,
-                height: 48,
-              }}
-              aria-label="Start"
-            >
-              <PlayArrowIcon fontSize="large" />
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <Tooltip title="Stop Game" arrow>
-            <IconButton
-              onClick={onStop}
-              sx={{
-                color: iconColor,
-                borderRadius: "50%",
-                width: 48,
-                height: 48,
-              }}
-              aria-label="Stop"
-            >
-              <StopIcon fontSize="large" />
-            </IconButton>
-          </Tooltip>
-        )}
-        <IconButton
-          onClick={onReset}
-          sx={{ color: iconColor, borderRadius: "50%", width: 48, height: 48 }}
-          aria-label="Reset"
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={1}
+          divider={<Divider orientation="vertical" flexItem />}
         >
-          <ReplayIcon fontSize="large" />
-        </IconButton>
-        <Tooltip title={hintText} arrow>
-          <IconButton
-            onClick={onHint}
-            sx={{
-              color: iconColor,
-              borderRadius: "50%",
-              width: 48,
-              height: 48,
-            }}
-            aria-label="Hint"
-          >
-            ?
-          </IconButton>
-        </Tooltip>
-      </Stack>
-    </Box>
+          {!isRunning ? (
+            <Tooltip title="Start" arrow>
+              <IconButton
+                onClick={onStart}
+                sx={{
+                  color: "#007aff",
+                  width: 56,
+                  height: 56,
+                  borderRadius: 28,
+                }}
+              >
+                <PlayArrowRoundedIcon fontSize="large" />
+              </IconButton>
+            </Tooltip>
+          ) : (
+            <Tooltip title="Stop" arrow>
+              <IconButton
+                onClick={onStop}
+                sx={{
+                  color: "#ff3b30",
+                  width: 56,
+                  height: 56,
+                  borderRadius: 28,
+                }}
+              >
+                <StopRoundedIcon fontSize="large" />
+              </IconButton>
+            </Tooltip>
+          )}
+          <Tooltip title="Reset" arrow>
+            <IconButton
+              onClick={onReset}
+              sx={{
+                color: "#222",
+                width: 48,
+                height: 48,
+                borderRadius: 24,
+              }}
+            >
+              <ReplayRoundedIcon fontSize="medium" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={hintText} arrow>
+            <IconButton
+              onClick={onHint}
+              sx={{
+                color: "#888",
+                width: 48,
+                height: 48,
+                borderRadius: 24,
+              }}
+            >
+              <LightbulbOutlinedIcon fontSize="medium" />
+            </IconButton>
+          </Tooltip>
+        </Stack>
+      </Box>
+    </Fade>
   );
 }

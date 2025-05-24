@@ -1,25 +1,22 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color-scheme: light;
+  color: #222;
+  background-color: #f8f8fa;
+  letter-spacing: -0.01em;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  color: #007aff;
+  text-decoration: none;
+  transition: color 0.2s;
 }
 a:hover {
-  color: #535bf2;
+  color: #0051a8;
 }
 
 body {
@@ -28,41 +25,41 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: #f8f8fa;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  border-radius: 24px;
+  border: none;
+  padding: 0.8em 2em;
+  font-size: 1.1em;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  background: #f5f5f7;
+  color: #222;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: none;
+  outline: none;
 }
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+button:hover, button:focus {
+  background: #e5e5ea;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* Remove heavy borders and shadows from cards */
+.card, .MuiPaper-root {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border: none;
+}
+
+/* Add more spacing between elements */
+.MuiContainer-root, .container {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }

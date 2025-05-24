@@ -1,25 +1,13 @@
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import {
-  AppBar,
-  Box,
-  IconButton,
-  Menu,
-  MenuItem,
-  Tab,
-  Tabs,
-  Toolbar,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import React, { useState } from "react";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { AppBar, Box, IconButton, Tab, Tabs, Toolbar } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import blackjackIcon from "../assets/icon-dark.svg";
 
 const tabs = ["SOLO", "LOCAL MULTIPLAYER"] as const;
 
 export function NavBar() {
   const [tab, setTab] = useState(0);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
   const theme = useTheme();
 
@@ -30,114 +18,52 @@ export function NavBar() {
     else if (label === "LOCAL MULTIPLAYER") navigate("/local");
   };
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleNavigateToInfo = () => {
-    handleMenuClose();
-    navigate("/info");
-  };
-
   return (
     <AppBar
       position="static"
-      elevation={1}
+      elevation={0}
       sx={{
-        bgcolor:
-          theme.palette.mode === "light"
-            ? "#fff"
-            : theme.palette.background.paper,
-        borderBottom: `1px solid ${theme.palette.divider}`,
+        bgcolor: theme.palette.background.paper,
+        borderBottom: `1px solid #f0f0f5`,
+        boxShadow: "none",
+        px: { xs: 1, sm: 2 },
       }}
     >
-      <Toolbar
-        sx={{
-          justifyContent: "space-between",
-          px: { xs: 2, sm: 4 },
-          minHeight: 64,
-        }}
-      >
-        {/* Logo + Tabs */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
-          <img
-            src={blackjackIcon}
-            alt="Blackjack Icon"
-            style={{ width: 32, height: 32, opacity: 0.85, cursor: "pointer" }}
-            onClick={() => navigate("/")}
-          />
-
-          <Tabs
-            value={tab}
-            onChange={handleTabChange}
-            textColor="primary"
-            indicatorColor="primary"
-            sx={{
-              ".MuiTabs-flexContainer": {
-                gap: 6,
-              },
-            }}
-          >
-            {tabs.map((label) => (
-              <Tab
-                key={label}
-                label={
-                  <Typography
-                    sx={{
-                      fontWeight: 600,
-                      letterSpacing: "0.05em",
-                      fontSize: "0.9rem",
-                      textTransform: "none",
-                    }}
-                  >
-                    {label}
-                  </Typography>
-                }
-              />
-            ))}
-          </Tabs>
+      <Toolbar sx={{ minHeight: 64, px: 0, justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <img src="/assets/icon.png" alt="Logo" style={{ height: 36, borderRadius: 8 }} />
+          <Box sx={{ fontWeight: 700, fontSize: 22, letterSpacing: -1, color: "#222", ml: 1 }}>
+            Blackjack
+          </Box>
         </Box>
-
-        {/* User Menu */}
-        <Box>
-          <IconButton
-            onClick={handleMenuOpen}
-            size="large"
-            aria-label="User account menu"
-            aria-controls={anchorEl ? "account-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={anchorEl ? "true" : undefined}
-            color="primary"
-          >
-            <AccountCircleIcon fontSize="large" />
-          </IconButton>
-
-          <Menu
-            id="account-menu"
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            transformOrigin={{ vertical: "top", horizontal: "right" }}
-            PaperProps={{
-              sx: {
-                mt: 1,
-                minWidth: 160,
-                boxShadow:
-                  "0px 4px 10px rgba(0, 0, 0, 0.1), 0px 0px 20px rgba(0, 0, 0, 0.05)",
-                borderRadius: 2,
-              },
-            }}
-          >
-            <MenuItem onClick={handleMenuClose}>User Settings</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Statistics</MenuItem>
-            <MenuItem onClick={handleNavigateToInfo}>Info</MenuItem>
-          </Menu>
-        </Box>
+        <Tabs
+          value={tab}
+          onChange={handleTabChange}
+          textColor="primary"
+          indicatorColor="primary"
+          sx={{
+            minHeight: 0,
+            ".MuiTabs-indicator": { height: 3, borderRadius: 2 },
+            ".MuiTab-root": {
+              fontWeight: 500,
+              fontSize: 16,
+              minWidth: 120,
+              px: 2,
+              textTransform: "none",
+              color: "#888",
+              '&.Mui-selected': { color: theme.palette.primary.main },
+            },
+          }}
+        >
+          <Tab label="Solo" />
+          <Tab label="Local" />
+        </Tabs>
+        <IconButton
+          onClick={() => navigate("/info")}
+          sx={{ ml: 2, color: theme.palette.text.secondary, borderRadius: 12 }}
+        >
+          <InfoOutlinedIcon fontSize="medium" />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );

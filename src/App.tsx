@@ -7,18 +7,19 @@ import LocalMultiplayerPage from "./pages/LocalMultiplayerPage";
 import SoloPage from "./pages/SoloPage";
 import TestPreview from "./pages/TestPreview";
 import WelcomePage from "./pages/WelcomePage";
+
 function App() {
   return (
     <>
       <CssBaseline />
       <Navbar />
-      <Container maxWidth="lg" sx={{ mt: 4 }}>
+      <Container maxWidth="sm" sx={{ mt: 6, mb: 6, px: { xs: 0, sm: 2 } }}>
         <Routes>
           <Route path="/" element={<WelcomePage />} />
           <Route path="/solo" element={<SoloPage />} />
           <Route path="/local" element={<LocalMultiplayerPage />} />
           <Route path="/info" element={<InfoPage />} />
-          /** DebugRoute */
+          {/* DebugRoute */}
           <Route path="/debug" element={<GameBoard />} />
           <Route path="/test" element={<TestPreview />} />
         </Routes>

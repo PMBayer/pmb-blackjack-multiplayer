@@ -1,59 +1,81 @@
-import { Box, Paper, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid";
+import { Box, Grid, Typography } from "@mui/material";
 
 export default function InfoPage() {
   return (
     <Box
       sx={{
         minHeight: "calc(100vh - 64px)",
-        background: "linear-gradient(to bottom right, #f2f2f2, #ffffff)",
+        background: "linear-gradient(to bottom right, #f8f8fa, #fff)",
         py: 8,
         px: 2,
       }}
     >
-      <Box sx={{ maxWidth: 1000, mx: "auto", textAlign: "center" }}>
-        <Typography variant="h3" fontWeight={700} gutterBottom>
+      <Box sx={{ maxWidth: 600, mx: "auto", textAlign: "center" }}>
+        <Typography
+          variant="h3"
+          fontWeight={700}
+          gutterBottom
+          sx={{ letterSpacing: -1, mb: 2 }}
+        >
           Welcome to Blackjack
         </Typography>
-        <Typography variant="h6" color="text.secondary" paragraph>
+        <Typography
+          variant="h6"
+          color="text.secondary"
+          paragraph
+          sx={{ mb: 4 }}
+        >
           Learn the rules and game modes to master the table.
         </Typography>
-
-        <Grid container spacing={4} sx={{ mt: 6 }}>
-          {[
-            {
-              title: "🎯 How to Play",
-              content:
-                "Try to get as close to 21 as possible without going over. Face cards are worth 10, aces are 1 or 11, and the rest are face value.",
-            },
-            {
-              title: "🃏 Game Flow",
-              content:
-                "You're dealt two cards. Choose to Hit or Stand. The dealer reveals their hand after you finish. Whoever is closer to 21 wins.",
-            },
-            {
-              title: "🧍 Solo Mode",
-              content:
-                "Perfect for practicing. You play alone against the dealer.",
-            },
-            {
-              title: "👥 Local Multiplayer",
-              content:
-                "Take turns with friends on the same device. Compete to see who has the best strategy.",
-            },
-          ].map((card, index) => (
-            <Grid key={index}>
-              <Paper
-                elevation={3}
-                sx={{ p: 4, borderRadius: 4, height: "100%" }}
+        <Grid
+          container
+          spacing={4}
+          sx={{ mt: 2, justifyContent: "center" }}
+        >
+          <Grid item xs={12} sm={6}>
+            <Box
+              sx={{
+                bgcolor: "background.paper",
+                borderRadius: 3,
+                p: 3,
+                boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+              }}
+            >
+              <Typography
+                variant="subtitle1"
+                fontWeight={600}
+                sx={{ mb: 1 }}
               >
-                <Typography variant="h5" fontWeight={600} gutterBottom>
-                  {card.title}
-                </Typography>
-                <Typography color="text.secondary">{card.content}</Typography>
-              </Paper>
-            </Grid>
-          ))}
+                How to Play
+              </Typography>
+              <Typography variant="body1" color="text.secondary">
+                Get as close to 21 as possible without going over. Face cards are
+                worth 10, Aces are 1 or 11. Beat the dealer to win.
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Box
+              sx={{
+                bgcolor: "background.paper",
+                borderRadius: 3,
+                p: 3,
+                boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+              }}
+            >
+              <Typography
+                variant="subtitle1"
+                fontWeight={600}
+                sx={{ mb: 1 }}
+              >
+                Game Modes
+              </Typography>
+              <Typography variant="body1" color="text.secondary">
+                Play solo or with friends locally. Simple, elegant, and
+                distraction-free.
+              </Typography>
+            </Box>
+          </Grid>
         </Grid>
       </Box>
     </Box>
