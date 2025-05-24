@@ -56,6 +56,7 @@ mp-blackjack/
 ## 🛠️ Getting Started
 
 ### Requirements
+
 - Node.js ≥ 18
 
 ### Setup
