@@ -37,11 +37,13 @@ jobs:
 
       - name: Create version tag
         id: tagger
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           VERSION="v$(date +'%Y.%m.%d-%H%M')"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           git tag "$VERSION"
-          git push origin "$VERSION"
+          git push https://x-access-token:${GH_PAT}@github.com/PMBayer/pmb-blackjack-multiplayer.git "$VERSION"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
