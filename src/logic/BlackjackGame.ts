@@ -9,19 +9,27 @@ export type Card = {
   
   export class BlackjackGame {
     private deck: Card[] = [];
+    private numDecks: number;
     public playerHand: Hand = [];
     public dealerHand: Hand = [];
   
-    constructor() {
+    constructor(numDecks = 6) {
+      this.numDecks = numDecks;
       this.resetGame();
     }
   
     private createDeck(): Card[] {
       const suits = ['spades', 'hearts', 'diamonds', 'clubs'] as const;
       const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-      return suits.flatMap(suit =>
-        values.map(value => ({ suit, value }))
-      );
+      let deck: Card[] = [];
+      for (let d = 0; d < this.numDecks; d++) {
+        deck = deck.concat(
+          suits.flatMap(suit =>
+            values.map(value => ({ suit, value }))
+          )
+        );
+      }
+      return deck;
     }
   
     private shuffleDeck(deck: Card[]): Card[] {
@@ -94,4 +102,3 @@ export type Card = {
       return 'draw';
     }
   }
-  

@@ -3,8 +3,8 @@ import { BlackjackGame } from '../logic/BlackjackGame';
 
 type Winner = 'player' | 'dealer' | 'draw' | null;
 
-const useBlackjackGame = () => {
-  const [game] = useState(() => new BlackjackGame());
+const useBlackjackGame = (numDecks = 6) => {
+  const [game] = useState(() => new BlackjackGame(numDecks));
   const [playerHand, setPlayerHand] = useState(game.playerHand);
   const [dealerHand, setDealerHand] = useState(game.dealerHand);
   const [winner, setWinner] = useState<Winner>(null);

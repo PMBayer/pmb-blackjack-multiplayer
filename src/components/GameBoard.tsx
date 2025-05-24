@@ -1,19 +1,48 @@
+import React, { useState } from "react";
 import { Box, useTheme } from "@mui/material";
-import { useState } from "react";
 import ControlBar from "./ControlBar";
 import DealerTable from "./DealerTable";
 import PlayerArea from "./PlayerArea";
+import useBlackjackGame from "../hooks/UseBlackjackGame";
+import GameResultMessage from "./GameResultMessage";
 
 export default function GameBoard() {
   const theme = useTheme();
+  const [showResult, setShowResult] = useState(false);
+  const [gameStarted, setGameStarted] = useState(true); // Start with a game, or set to false for explicit start
+  const {
+    playerHand,
+    dealerHand,
+    winner,
+    hit,
+    stand,
+    reset,
+  } = useBlackjackGame(6); // Use 6 decks for a more realistic game
 
-  const [isRunning, setIsRunning] = useState(false);
+  const isRunning = winner === null && gameStarted;
 
-  const handleStart = () => setIsRunning(true);
-  const handleStop = () => setIsRunning(false);
+  // Show result message when winner is set
+  React.useEffect(() => {
+    if (winner) setShowResult(true);
+  }, [winner]);
+
   const handleReset = () => {
-    setIsRunning(false);
-    // Hier ggf. Spiel-Reset-Logik ergänzen
+    reset();
+    setShowResult(false);
+    setGameStarted(true);
+  };
+
+  const handleStart = () => {
+    reset();
+    setShowResult(false);
+    setGameStarted(true);
+  };
+
+  const handleStop = () => {
+    if (!winner && gameStarted) {
+      stand();
+    }
+    setGameStarted(false);
   };
 
   return (
@@ -27,10 +56,20 @@ export default function GameBoard() {
         }}
       >
         <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
-          <DealerTable />
+          <DealerTable
+            hand={dealerHand}
+            gameStarted={gameStarted}
+            hideHoleCard={isRunning}
+          />
         </Box>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <PlayerArea />
+          <PlayerArea
+            hand={playerHand}
+            onHit={hit}
+            onStand={stand}
+            isRunning={isRunning}
+            disabled={!isRunning}
+          />
         </Box>
       </Box>
       <ControlBar
@@ -38,6 +77,13 @@ export default function GameBoard() {
         onStart={handleStart}
         onStop={handleStop}
         onReset={handleReset}
+        onHint={() => {}}
+        hintText={"Try to get as close to 21 as possible without busting!"}
+      />
+      <GameResultMessage
+        open={showResult}
+        result={winner === "player" ? "win" : winner === "dealer" ? "lose" : "draw"}
+        onClose={() => setShowResult(false)}
       />
     </>
   );

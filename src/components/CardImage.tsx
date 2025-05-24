@@ -6,8 +6,19 @@ type CardProps = {
 };
 
 const CardImage: React.FC<CardProps> = ({ value, suit }) => {
-  const fileName = `${value}_of_${suit}.png`;
-  const src = `/assets/cards/${fileName}`;
+  // Map face values to file names
+  let fileValue = value;
+  if (value === "A") fileValue = "ace";
+  else if (value === "K") fileValue = "king";
+  else if (value === "Q") fileValue = "queen";
+  else if (value === "J") fileValue = "jack";
+  // All others (2-10) are already correct
+  // Suit should be lowercase for file names
+  const fileName = `${fileValue.toLowerCase()}_of_${suit.toLowerCase()}.png`;
+  const src = `/assets/${fileName}`;
+
+  // For debugging: log the src path
+  console.log('Card image src:', src);
 
   return (
     <img
@@ -22,7 +33,8 @@ const CardImage: React.FC<CardProps> = ({ value, suit }) => {
         backgroundColor: "#f0f0f0", // für transparente Karten
       }}
       onError={(e) => {
-        (e.currentTarget as HTMLImageElement).src = "/assets/cards/back.png";
+        (e.currentTarget as HTMLImageElement).src = "/assets/back.png";
+        (e.currentTarget as HTMLImageElement).style.border = "2px solid red";
       }}
     />
   );
