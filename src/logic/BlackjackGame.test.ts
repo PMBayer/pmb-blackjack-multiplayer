@@ -1,4 +1,5 @@
-import { BlackjackGame, Card } from './BlackjackGame';
+import type { Card } from './BlackjackGame';
+import { BlackjackGame } from './BlackjackGame';
 
 describe('BlackjackGame', () => {
   let game: BlackjackGame;
