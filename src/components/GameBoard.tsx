@@ -1,10 +1,10 @@
-import React, { useState } from "react";
 import { Box, useTheme } from "@mui/material";
+import React, { useState } from "react";
+import useBlackjackGame from "../hooks/UseBlackjackGame";
 import ControlBar from "./ControlBar";
 import DealerTable from "./DealerTable";
-import PlayerArea from "./PlayerArea";
-import useBlackjackGame from "../hooks/UseBlackjackGame";
 import GameResultMessage from "./GameResultMessage";
+import PlayerArea from "./PlayerArea";
 
 export default function GameBoard() {
   const theme = useTheme();
