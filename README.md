@@ -45,6 +45,27 @@ mp-blackjack/
 
 ---
 
+## ✨ Features
+
+- Multiplayer support (local, turn-based)
+- Modern, responsive UI (mobile-friendly)
+- Full accessibility (ARIA labels, keyboard navigation)
+- Animated card dealing (Framer Motion)
+- Robust, reducer-based game logic
+- Comprehensive unit and edge-case tests
+
+---
+
+## 🖼️ Screenshots
+
+> _Add your own screenshots or GIFs here!_
+
+| Desktop | Mobile |
+|--------|--------|
+| ![Desktop Screenshot](public/assets/screenshot-desktop.png) | ![Mobile Screenshot](public/assets/screenshot-mobile.png) |
+
+---
+
 ## 🚀 Usage
 
 ### Development
@@ -54,16 +75,25 @@ npm install
 npm run dev
 ```
 
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
 ### Build
 
 ```sh
 npm run build
 ```
 
-### Test
+### Test (including edge cases)
 
 ```sh
 npm test
+```
+
+- Tests cover multiplayer, deck exhaustion, hand value logic, and more.
+- To run a specific test file:
+
+```sh
+npm test src/logic/blackjackReducer.test.ts
 ```
 
 ### Lint
@@ -71,6 +101,13 @@ npm test
 ```sh
 npm run lint
 ```
+
+---
+
+## ♿ Accessibility & Mobile
+
+- All interactive elements have ARIA labels and keyboard navigation.
+- Layout adapts to mobile screens (try resizing your browser or using DevTools).
 
 ---
 
