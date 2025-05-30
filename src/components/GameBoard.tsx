@@ -1,6 +1,6 @@
 import { Box, useTheme } from "@mui/material";
 import React, { useState } from "react";
-import { useBlackjackReducer } from "../hooks/useBlackjackReducer";
+import useBlackjackGame from "../hooks/UseBlackjackGame";
 import ControlBar from "./ControlBar";
 import DealerTable from "./DealerTable";
 import GameResultMessage from "./GameResultMessage";
@@ -9,19 +9,17 @@ import PlayerArea from "./PlayerArea";
 export default function GameBoard() {
   const theme = useTheme();
   const [showResult, setShowResult] = useState(false);
-  const [gameStarted, setGameStarted] = useState(true);
-  const numPlayers = 2; // Example: support 2 players for now
+  const [gameStarted, setGameStarted] = useState(true); // Start with a game, or set to false for explicit start
   const {
-    state,
-    resetGame,
+    playerHand,
+    dealerHand,
+    winner,
     hit,
     stand,
-    nextPlayer,
-  } = useBlackjackReducer(numPlayers);
+    reset,
+  } = useBlackjackGame(6); // Use 6 decks for a more realistic game
 
-  const { players, dealer, winner, currentPlayerIndex, gameOver } = state;
-  const currentPlayer = players[currentPlayerIndex];
-  const isRunning = !winner && gameStarted && !gameOver;
+  const isRunning = winner === null && gameStarted;
 
   // Show result message when winner is set
   React.useEffect(() => {
@@ -29,13 +27,13 @@ export default function GameBoard() {
   }, [winner]);
 
   const handleReset = () => {
-    resetGame();
+    reset();
     setShowResult(false);
     setGameStarted(true);
   };
 
   const handleStart = () => {
-    resetGame();
+    reset();
     setShowResult(false);
     setGameStarted(true);
   };
@@ -43,7 +41,6 @@ export default function GameBoard() {
   const handleStop = () => {
     if (!winner && gameStarted) {
       stand();
-      nextPlayer();
     }
     setGameStarted(false);
   };
@@ -60,24 +57,19 @@ export default function GameBoard() {
       >
         <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
           <DealerTable
-            hand={dealer.hand}
+            hand={dealerHand}
             gameStarted={gameStarted}
             hideHoleCard={isRunning}
           />
         </Box>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          {/* Render all players */}
-          {players.map((player, idx) => (
-            <PlayerArea
-              key={player.id}
-              hand={player.hand}
-              name={player.name}
-              onHit={hit}
-              onStand={() => { stand(); nextPlayer(); }}
-              isRunning={isRunning && currentPlayerIndex === idx}
-              disabled={currentPlayerIndex !== idx || gameOver}
-            />
-          ))}
+          <PlayerArea
+            hand={playerHand}
+            onHit={hit}
+            onStand={stand}
+            isRunning={isRunning}
+            disabled={!isRunning}
+          />
         </Box>
       </Box>
       <ControlBar

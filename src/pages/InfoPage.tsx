@@ -1,4 +1,5 @@
-import { Box, Paper, Typography, Grid } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 export default function InfoPage() {
   return (
@@ -41,7 +42,7 @@ export default function InfoPage() {
                 "Take turns with friends on the same device. Compete to see who has the best strategy.",
             },
           ].map((card, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
+            <Grid key={index}>
               <Paper
                 elevation={3}
                 sx={{ p: 4, borderRadius: 4, height: "100%" }}
